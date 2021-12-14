@@ -4,4 +4,6 @@ export interface BaseReadDto {
 
 export interface BaseCreateDto {}
 
-export interface BaseUpdateDto {}
+export interface BaseUpdateDto {
+  id?: string;
+}

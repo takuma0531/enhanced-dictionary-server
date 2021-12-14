@@ -19,7 +19,7 @@ export interface WordModel
   extends Model<WordDocument>,
     IHasCustomWordStaticMethod {}
 
-export interface IHasCustomWordMethod extends IHascustomMethod<WordReadDto> {}
+export interface IHasCustomWordMethod extends IHasCustomMethod<WordReadDto> {}
 
 export interface IHasCustomWordStaticMethod
   extends IHasCustomStaticMethod<WordDocument, WordCreateDto> {}

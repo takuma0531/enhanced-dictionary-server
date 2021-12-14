@@ -95,6 +95,10 @@ export class UserService implements IUserService {
     }
   }
 
+  // update
+
+  // remove user
+
   public async getAuthResult(
     payload: CustomJwtPayload
   ): Promise<AuthorizedResult> {
