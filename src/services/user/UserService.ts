@@ -3,6 +3,7 @@ import {
   UserCreateDto,
   UserLoginRequestDto,
   UserReadDto,
+  UserUpdateDto,
 } from "../../typings/models/user/dto";
 import { CustomJwtPayload } from "../../typings/common";
 import { IUserService } from "./IUserService";
@@ -95,9 +96,26 @@ export class UserService implements IUserService {
     }
   }
 
-  // update
+  public async updateUser(userUpdateDto: UserUpdateDto): Promise<UserReadDto> {
+    try {
+      const document = await this._userRepository.updateById(
+        userUpdateDto.id!,
+        userUpdateDto
+      );
+      if (!document) throw "something went wrong";
+      return document.toReadDto();
+    } catch (err) {
+      throw err;
+    }
+  }
 
-  // remove user
+  public async removeUser(userId: string): Promise<void> {
+    try {
+      await this._userRepository.removeById(userId);
+    } catch (err) {
+      throw err;
+    }
+  }
 
   public async getAuthResult(
     payload: CustomJwtPayload

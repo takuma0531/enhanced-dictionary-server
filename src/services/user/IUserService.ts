@@ -3,6 +3,7 @@ import {
   UserCreateDto,
   UserLoginRequestDto,
   UserReadDto,
+  UserUpdateDto,
 } from "../../typings/models/user/dto";
 import { CustomJwtPayload } from "../../typings/common";
 
@@ -12,5 +13,7 @@ export interface IUserService {
     userLoginRequestDto: UserLoginRequestDto
   ): Promise<AuthorizedResult>;
   getById(id: string): Promise<UserReadDto>;
+  updateUser(userUpdateDto: UserUpdateDto): Promise<UserReadDto>;
+  removeUser(userId: string): Promise<void>;
   getAuthResult(payload: CustomJwtPayload): Promise<AuthorizedResult>;
 }
