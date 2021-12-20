@@ -29,6 +29,15 @@ const wordSchema = new Schema<WordDocument>(
       required: true,
       default: 0,
     },
+    isMemorized: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    dateMemorized: {
+      type: Date,
+      default: null,
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",

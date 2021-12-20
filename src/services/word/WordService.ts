@@ -16,10 +16,27 @@ export class WordService implements IWordService {
     wordCreateDto: WordCreateDto
   ): Promise<WordReadDto> {
     try {
-      const document = Word.toDocument(wordCreateDto);
-      const word = await this._wordRepository.add(document);
-      const wordReadDto = word.toReadDto();
-      return wordReadDto;
+      const userId = wordCreateDto.user as string;
+      const wordReadDtos = await this.getWordsByUserId(userId);
+
+      let wordObjectId: string | null = null;
+      if (wordReadDtos != null) {
+        for (let i = 0; i < wordReadDtos?.length; i++) {
+          if (wordReadDtos[i].detectedText == wordCreateDto.detectedText)
+            wordObjectId = wordReadDtos[i].id as string;
+        }
+      }
+
+      let wordReadDtoToReturn;
+      if (wordObjectId) {
+        wordReadDtoToReturn = await this.refreshCountOfWordPlayed(wordObjectId);
+      } else {
+        const document = Word.toDocument(wordCreateDto);
+        const word = await this._wordRepository.add(document);
+        wordReadDtoToReturn = word.toReadDto();
+      }
+
+      return wordReadDtoToReturn;
     } catch (err) {
       throw err;
     }
@@ -80,6 +97,10 @@ export class WordService implements IWordService {
       if (word == null) throw "This update is invalid";
 
       word.count++;
+
+      if (word.count <= 7) {
+        word.dateMemorized = new Date();
+      }
       const updatedWord = await this._wordRepository.updateById(wordId, word);
       if (updatedWord == null) throw "something went wrong";
       const wordReadDto = updatedWord.toReadDto();

@@ -8,6 +8,8 @@ export interface WordReadDto extends BaseReadDto {
   targetText: Word["targetText"];
   targetLanguage: Word["targetLanguage"];
   count: Word["count"];
+  isMemorized: Word["isMemorized"];
+  dateMemorized: Word["dateMemorized"];
   user?: Word["user"];
 }
 
@@ -18,6 +20,7 @@ export interface WordCreateDto extends BaseCreateDto {
   targetText: Word["targetText"];
   targetLanguage: Word["targetLanguage"];
   count?: Word["count"];
+  isMemorized?: Word["isMemorized"];
   user: Word["user"];
 }
 
@@ -27,6 +30,8 @@ export interface WordUpdateDto extends BaseUpdateDto {
   definition?: Word["definition"];
   targetText?: Word["targetText"];
   targetLanguage?: Word["targetLanguage"];
-  count: Word["count"];
+  count?: Word["count"];
+  isMemorized?: Word["isMemorized"];
+  dateMemorized?: Word["dateMemorized"];
   user?: Word["user"];
 }

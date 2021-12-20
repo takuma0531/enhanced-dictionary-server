@@ -10,6 +10,8 @@ export interface Word {
   targetText: string;
   targetLanguage: string;
   count: number;
+  isMemorized: boolean;
+  dateMemorized: Date;
   user: string | UserDocument;
 }
 
