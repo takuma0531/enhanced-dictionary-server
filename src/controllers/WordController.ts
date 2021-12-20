@@ -58,7 +58,7 @@ export class WordController extends BaseController {
     }
   }
 
-  // @route     PUT api/v1/words
+  // @route     PUT api/v1/words/user
   // @desc      update a word
   // @access    private
   public async updateWord(req: Request, res: Response) {
@@ -77,7 +77,7 @@ export class WordController extends BaseController {
   // @access    private
   public async incrementCountOfWordPlayed(req: Request, res: Response) {
     try {
-      const { wordId } = req.params;
+      const { wordId }: { wordId: string } = req.query as any;
       const wordReadDto = await this._wordService.incrementCountOfWordPlayed(
         wordId
       );
@@ -93,7 +93,7 @@ export class WordController extends BaseController {
   // @access    private
   public async refreshCountOfWordPlayed(req: Request, res: Response) {
     try {
-      const { wordId } = req.params;
+      const { wordId }: { wordId: string } = req.query as any;
       const wordReadDto = await this._wordService.refreshCountOfWordPlayed(
         wordId
       );
@@ -109,7 +109,7 @@ export class WordController extends BaseController {
   // @access    private
   public async deleteWord(req: Request, res: Response) {
     try {
-      const { wordId } = req.params;
+      const { wordId }: { wordId: string } = req.query as any;
       await this._wordService.removeWord(wordId);
       return super.ok(res);
     } catch (err: any) {
