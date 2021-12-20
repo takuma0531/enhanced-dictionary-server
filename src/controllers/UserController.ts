@@ -30,9 +30,12 @@ export class UserController extends BaseController {
   // @access  public
   public async loginUser(req: Request, res: Response) {
     try {
-      const { id } = req.userClaims;
-      const userReadDto: UserReadDto = await this._userService.getById(id!);
-      return super.ok(res, userReadDto);
+      const userLoginRequestDto: UserLoginRequestDto = req.body;
+      const authorizedResult = await this._userService.loginUser(
+        userLoginRequestDto
+      );
+      if (authorizedResult.isAuthorized) return super.ok(res, authorizedResult);
+      else return super.unauthorized(res);
     } catch (err: any) {
       return super.internalServerError(res, err);
     }
