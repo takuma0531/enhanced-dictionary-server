@@ -45,7 +45,7 @@ export class WordController extends BaseController {
   public async getWordsForMemoryGame(req: Request, res: Response) {
     try {
       const { id } = req.userClaims;
-      const { numberOfPairs } = req.params;
+      const { numberOfPairs } = req.query as any;
       const convertedNumberOfPairs = Number(numberOfPairs);
       const wordReadDtos = await this._wordService.getWordsForMemoryGame(
         id!,
