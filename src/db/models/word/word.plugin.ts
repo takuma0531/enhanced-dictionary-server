@@ -19,6 +19,8 @@ export const wordPlugin = (wordSchema: Schema<WordDocument>) => {
       targetText: this.targetText,
       targetLanguage: this.targetLanguage,
       count: this.count,
+      isMemorized: this.isMemorized,
+      dateMemorized: this.dateMemorized,
       //   user: this.user,
     };
     return wordReadDto;

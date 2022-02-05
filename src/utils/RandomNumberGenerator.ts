@@ -3,7 +3,7 @@ export class RandomNumberGenerator {
     let outputArr: number[] = [];
 
     for (let i = 0; i < lengthOfOutput; i++) {
-      const rand = Math.random() * range;
+      const rand = Math.floor(Math.random() * range);
       if (!this.isDupulicated(outputArr, rand)) outputArr.push(rand);
     }
     return outputArr;

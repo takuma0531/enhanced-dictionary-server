@@ -11,7 +11,7 @@ export interface IWordService {
     userId: string,
     numberOfPairs: number
   ): Promise<WordReadDto[] | null>;
-  updateWord(wordUpdateDto: WordUpdateDto): Promise<WordReadDto>;
+  updateWord(wordUpdateDto: any): Promise<WordReadDto>;
   incrementCountOfWordPlayed(wordId: string): Promise<WordReadDto>;
   refreshCountOfWordPlayed(wordId: string): Promise<WordReadDto>;
   removeWord(wordId: string): Promise<void>;

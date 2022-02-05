@@ -1,4 +1,3 @@
-// TODO: from word service
 import {
   WordReadDto,
   WordCreateDto,
@@ -8,6 +7,8 @@ import { IWordService } from "./IWordService";
 import { IWordRepository } from "../../db/repositories/word/IWordRepository";
 import { Word } from "../../db/models/word/word.model";
 import { RandomNumberGenerator } from "../../utils/RandomNumberGenerator";
+
+// TODO: cascade execution
 
 export class WordService implements IWordService {
   constructor(private readonly _wordRepository: IWordRepository) {}
@@ -75,13 +76,17 @@ export class WordService implements IWordService {
     }
   }
 
-  public async updateWord(wordUpdateDto: WordUpdateDto): Promise<WordReadDto> {
+  public async updateWord(wordUpdateDto: any): Promise<WordReadDto> {
     try {
-      const updatedWord = await this._wordRepository.updateById(
+      let updatedWord = await this._wordRepository.updateById(
         wordUpdateDto.id!,
         wordUpdateDto
       );
       if (updatedWord == null) throw "This update is invalid";
+
+      // findByIdAndUpdate API doesn't receive updated data so it is needed to get updated one.
+      updatedWord = await this._wordRepository.getById(updatedWord.id);
+      if (updatedWord == null) throw "Something went wrong";
       const wordReadDto = updatedWord.toReadDto();
       return wordReadDto;
     } catch (err) {
@@ -101,9 +106,8 @@ export class WordService implements IWordService {
       if (word.count <= 7) {
         word.dateMemorized = new Date();
       }
-      const updatedWord = await this._wordRepository.updateById(wordId, word);
-      if (updatedWord == null) throw "something went wrong";
-      const wordReadDto = updatedWord.toReadDto();
+
+      const wordReadDto = this.updateWord(word);
       return wordReadDto;
     } catch (err) {
       throw err;
@@ -116,9 +120,8 @@ export class WordService implements IWordService {
       if (word == null) throw "This update is invalid";
 
       word.count = 0;
-      const updatedWord = await this._wordRepository.updateById(wordId, word);
-      if (updatedWord == null) throw "something went wrong";
-      const wordReadDto = updatedWord.toReadDto();
+
+      const wordReadDto = this.updateWord(word);
       return wordReadDto;
     } catch (err) {
       throw err;

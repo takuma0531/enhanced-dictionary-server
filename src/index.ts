@@ -4,6 +4,9 @@ import { Server } from "./Server";
 import { ServerParts } from "./typings/common/server";
 import { ServerConstants } from "./config/constants";
 import { userRouter, wordRouter } from "./routes";
+import { connectDB } from "./db/mongoose";
+
+connectDB();
 
 const serverParts: ServerParts = {
   host: ServerConstants.SERVER_HOST,
