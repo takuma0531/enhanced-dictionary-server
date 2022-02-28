@@ -61,13 +61,17 @@ export class WordService implements IWordService {
       const words = await this._wordRepository.getByUserId(userId);
       if (words == null) return null;
 
+      const unmemorizedWords = words.filter(
+        (word) => word.isMemorized === false
+      );
+
       const randomIntegerList: number[] = RandomNumberGenerator.generateNumbers(
         numberOfPairs,
-        words.length
+        unmemorizedWords.length
       );
 
       for (let i = 0; i < randomIntegerList.length; i++) {
-        const filteredWord = words[randomIntegerList[i]].toReadDto();
+        const filteredWord = unmemorizedWords[randomIntegerList[i]].toReadDto();
         filteredWordReadDtos.push(filteredWord);
       }
       return filteredWordReadDtos;
