@@ -72,17 +72,20 @@ export class WordController extends BaseController {
     }
   }
 
-  // @route     PUT api/v1/words/user/incrementing-count-of-word-played?wordId=
+  // @route     PUT api/v1/words/user/incrementing-count-of-word-played
   // @desc      increment the count of word played in memory game
   // @access    private
   public async incrementCountOfWordPlayed(req: Request, res: Response) {
     try {
-      const { wordId }: { wordId: string } = req.query as any;
-      const wordReadDto = await this._wordService.incrementCountOfWordPlayed(
-        wordId
-      );
-      if (wordReadDto == null) return super.notFound(res);
-      return super.ok(res, wordReadDto);
+      const words: WordUpdateDto[] = req.body;
+      const wordReadDtos: WordReadDto[] = [];
+      words.every(async (word) => {
+        const wordReadDto = await this._wordService.incrementCountOfWordPlayed(
+          word.id!
+        );
+        wordReadDtos.push(wordReadDto);
+      });
+      return super.ok(res, wordReadDtos);
     } catch (err: any) {
       return super.internalServerError(res, err);
     }
