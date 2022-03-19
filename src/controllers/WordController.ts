@@ -17,10 +17,13 @@ export class WordController extends BaseController {
   // @access    private
   public async createWord(req: Request, res: Response) {
     try {
+      const { id } = req.userClaims;
       const wordCreateDto: WordCreateDto = req.body;
+      wordCreateDto.user = id;
       const wordReadDto = await this._wordService.registerWord(wordCreateDto);
       return super.created<WordReadDto>(res, wordReadDto);
     } catch (err: any) {
+      console.log(err.message);
       return super.internalServerError(res, err);
     }
   }

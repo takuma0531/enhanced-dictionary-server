@@ -21,7 +21,7 @@ export interface WordCreateDto extends BaseCreateDto {
   targetLanguage: Word["targetLanguage"];
   count?: Word["count"];
   isMemorized?: Word["isMemorized"];
-  user: Word["user"];
+  user?: Word["user"];
 }
 
 export interface WordUpdateDto extends BaseUpdateDto {
