@@ -3,8 +3,12 @@ export class RandomNumberGenerator {
     let outputArr: number[] = [];
 
     for (let i = 0; i < lengthOfOutput; i++) {
-      const rand = Math.floor(Math.random() * range);
-      if (!this.isDupulicated(outputArr, rand)) outputArr.push(rand);
+      let rand = Math.floor(Math.random() * range);
+
+      while (this.isDupulicated(outputArr, rand)) {
+        rand = Math.floor(Math.random() * range);
+      }
+      outputArr.push(rand);
     }
     return outputArr;
   }
