@@ -80,15 +80,11 @@ export class WordController extends BaseController {
   // @access    private
   public async incrementCountOfWordPlayed(req: Request, res: Response) {
     try {
-      const words: WordUpdateDto[] = req.body;
-      const wordReadDtos: WordReadDto[] = [];
-      words.every(async (word) => {
-        const wordReadDto = await this._wordService.incrementCountOfWordPlayed(
-          word.id!
-        );
-        wordReadDtos.push(wordReadDto);
-      });
-      return super.ok(res, wordReadDtos);
+      const word: WordUpdateDto = req.body;
+      const wordReadDto = this._wordService.incrementCountOfWordPlayed(
+        word!.id!
+      );
+      return super.ok(res, wordReadDto);
     } catch (err: any) {
       return super.internalServerError(res, err);
     }
