@@ -107,7 +107,7 @@ export class WordService implements IWordService {
 
       word.count++;
 
-      if (word.count <= 7) {
+      if (word.count >= 7) {
         word.dateMemorized = new Date();
       }
 
