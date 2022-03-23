@@ -64,6 +64,7 @@ export class WordService implements IWordService {
       const unmemorizedWords = words.filter(
         (word) => word.isMemorized === false
       );
+      if (unmemorizedWords.length < 5) return null;
 
       const randomIntegerList: number[] = RandomNumberGenerator.generateNumbers(
         numberOfPairs,
