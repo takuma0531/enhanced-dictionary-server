@@ -35,3 +35,11 @@ export interface WordUpdateDto extends BaseUpdateDto {
   dateMemorized?: Word["dateMemorized"];
   user?: Word["user"];
 }
+
+export interface WordSearchDto {
+  detectedText?: Word["detectedText"];
+  detectedLanguage?: Word["detectedLanguage"];
+  definition?: Word["definition"];
+  targetText?: Word["targetText"];
+  targetLanguage?: Word["targetLanguage"];
+}
