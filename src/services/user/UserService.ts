@@ -23,10 +23,11 @@ export class UserService implements IUserService {
     userCreateDto: UserCreateDto
   ): Promise<UserReadDto> {
     try {
-      userCreateDto.password = await BCryptService.encrypt(
-        userCreateDto.password
+      let userCreateDtoToSave = { ...userCreateDto };
+      userCreateDtoToSave.password = await BCryptService.encrypt(
+        userCreateDtoToSave.password
       );
-      const document = User.toDocument(userCreateDto);
+      const document = User.toDocument(userCreateDtoToSave);
       const user = await this._userRepository.add(document);
 
       const payload = {

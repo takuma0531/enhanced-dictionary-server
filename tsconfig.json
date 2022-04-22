@@ -4,6 +4,7 @@
     "module": "commonjs",
     "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
     "typeRoots": ["./src/typings/common", "./node_modules/@types"],
+    "types": ["jest", "node"],
     "sourceMap": true,
     "outDir": "./dist",
     "removeComments": true,
@@ -29,5 +30,5 @@
     "allowJs": true
   },
   "exclude": ["node_modules"],
-  "include": ["./src/", "./src/**/*.ts"]
+  "include": ["./src/**/*", "**/*.test.ts"]
 }
