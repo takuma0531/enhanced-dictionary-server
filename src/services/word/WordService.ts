@@ -1,14 +1,8 @@
-import {
-  WordReadDto,
-  WordCreateDto,
-  WordUpdateDto,
-} from "../../typings/models/word/dto";
+import { WordReadDto, WordCreateDto } from "../../typings/models/word/dto";
 import { IWordService } from "./IWordService";
 import { IWordRepository } from "../../db/repositories/word/IWordRepository";
 import { Word } from "../../db/models/word/word.model";
 import { RandomNumberGenerator } from "../../utils/RandomNumberGenerator";
-
-// TODO: cascade execution
 
 export class WordService implements IWordService {
   constructor(private readonly _wordRepository: IWordRepository) {}
@@ -64,7 +58,7 @@ export class WordService implements IWordService {
       const unmemorizedWords = words.filter(
         (word) => word.isMemorized === false
       );
-      if (unmemorizedWords.length < 5) {
+      if (unmemorizedWords.length < numberOfPairs) {
         const unmemorizedWordReadDtos = unmemorizedWords.map(
           (unmemorizedWord) => unmemorizedWord.toReadDto()
         );
@@ -114,6 +108,7 @@ export class WordService implements IWordService {
       word.count++;
 
       if (word.count >= 7) {
+        word.isMemorized = true;
         word.dateMemorized = new Date();
       }
 

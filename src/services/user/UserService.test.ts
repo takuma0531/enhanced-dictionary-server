@@ -34,16 +34,16 @@ describe("test UserService", () => {
   });
 
   test("test UserService getById method", async () => {
-    const mockUserTables = await mockUserRepository.getAll();
-    const mockUser1 = mockUserTables[0];
+    const mockUserTable = await mockUserRepository.getAll();
+    const mockUser1 = mockUserTable[0];
     const userReadDto = await userService.getById(mockUser1._id);
 
-    expect(mockUserTables[0].email).toBe(userReadDto.email);
+    expect(mockUserTable[0].email).toBe(userReadDto.email);
   });
 
   test("test UserService updateUser method", async () => {
-    const mockUserTables = await mockUserRepository.getAll();
-    const mockUser1 = mockUserTables[0];
+    const mockUserTable = await mockUserRepository.getAll();
+    const mockUser1 = mockUserTable[0];
     const userUpdateDto: UserUpdateDto = {
       id: mockUser1._id,
       email: "test1.update@email.com",
@@ -56,8 +56,8 @@ describe("test UserService", () => {
   });
 
   test("test UserService removeUser method", async () => {
-    const mockUserTables = await mockUserRepository.getAll();
-    const mockUser1 = mockUserTables[0];
+    const mockUserTable = await mockUserRepository.getAll();
+    const mockUser1 = mockUserTable[0];
     await userService.removeUser(mockUser1._id);
     const mockUserTablesToCheck = await mockUserRepository.getAll();
     const found = mockUserTablesToCheck.find(
@@ -68,8 +68,8 @@ describe("test UserService", () => {
   });
 
   test("test UserService getAuthResult method", async () => {
-    const mockUserTables = await mockUserRepository.getAll();
-    const mockUser1 = mockUserTables[0];
+    const mockUserTable = await mockUserRepository.getAll();
+    const mockUser1 = mockUserTable[0];
     const authorizedResult = await userService.getAuthResult({
       id: mockUser1._id,
       email: mockUser1.email,

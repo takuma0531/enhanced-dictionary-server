@@ -39,7 +39,8 @@ const wordSchema = new Schema<WordDocument>(
       default: null,
     },
     user: {
-      type: Schema.Types.ObjectId,
+      // type: Schema.Types.ObjectId,
+      type: Schema.Types.Mixed,
       ref: "User",
       required: true,
     },
